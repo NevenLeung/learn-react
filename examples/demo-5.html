@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Extracting Components</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="../libs/react.development.js"></script>
+    <script src="../libs/react-dom.development.js"></script>
+    <script src="../libs/babel.min.js"></script>
+
+    <script type="text/babel">
+      // origin comment component
+      function CommentOrigin(props){
+        return (
+          <div className="comment">
+            <div className="userInfo">
+              <img className="avatar"
+                   src={props.author.avatarUrl}
+                   alt={props.author.name}
+              />
+              <div className="userInfo-name">
+                {props.author.name}
+              </div>
+            </div>
+            <div className="comment-text">
+              {props.text}
+            </div>
+            <div className="comment-date">
+              {props.date}
+            </div>
+          </div>
+        )
+      }
+
+      function Avatar(props) {
+        return (
+          <img className="avatar"
+               src={props.user.avatarUrl}
+               alt={props.user.name}
+          />
+        )
+      }
+
+      function UserInfo(props) {
+        return (
+          <div className="userInfo">
+            <Avatar user={props.user} />
+            <div className="userInfo-name">
+              {props.user.name}
+            </div>
+          </div>
+        )
+      }
+
+      function Comment(props){
+        return (
+          <div className="comment">
+            <UserInfo user={props.author} />
+            <div className="comment-text">
+              {props.text}
+            </div>
+            <div className="comment-date">
+              {props.date}
+            </div>
+          </div>
+        )
+      }
+
+      const data = {
+        author: {
+          name: 'Neven',
+          avatarUrl: 'https://avatars3.githubusercontent.com/u/18048923?s=460&v=4'
+        },
+        text: 'My name is Neven.',
+        date: '2018-08-25'
+      };
+
+      const el = Comment(data);
+
+      ReactDOM.render(
+        // el,
+        <Comment author={data.author} text={data.text} date={data.date} />,
+        document.getElementById('root')
+      );
+
+    </script>
+  </body>
+</html>
