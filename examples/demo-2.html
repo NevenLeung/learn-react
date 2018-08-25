@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="../libs/react.development.js"></script>
+    <script src="../libs/react-dom.development.js"></script>
+    <script src="../libs/babel.min.js"></script>
+
+    <script type="text/babel">
+      const names = ['Alice', 'Emily', 'Kate'];
+
+      ReactDOM.render(
+        <div>
+          {
+            names.map((name, index) => {
+              return <div key={index}>Hello, {name}!</div>
+            })
+          }
+        </div>,
+        document.getElementById('root')
+      );
+
+    </script>
+  </body>
+</html>
