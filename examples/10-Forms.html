@@ -12,6 +12,8 @@
     <div id="example-3"></div>
     <br>
     <div id="example-4"></div>
+    <br>
+    <div id="example-5"></div>
 
     <script src="../libs/react.development.js"></script>
     <script src="../libs/react-dom.development.js"></script>
@@ -46,7 +48,7 @@
               <label>
                 Name:
                 &nbsp;
-                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                <input type="text" value={this.state.value} onChange={this.handleChange} placeholder="name" />
               </label>
               &nbsp;
               <input type="submit" value="Submit" />
@@ -195,6 +197,40 @@
       ReactDOM.render(
         <Reservation/>,
         document.getElementById('example-4')
+      );
+
+      // Uncontrolled component - react doesn't handle the input change. Using this.input to get the input value.
+      class NameFrom2 extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+
+        handleSubmit = (event) => {
+          alert('A name was submitted: ' + this.input.value);
+          event.preventDefault();
+        };
+
+        render() {
+          return (
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                Name:
+                &nbsp;
+                <input type="text"
+                       ref={(input) => this.input = input}
+                       defaultValue="Dave"
+                />
+              </label>
+              &nbsp;
+              <input type="submit" value="Submit" />
+            </form>
+          );
+        }
+      }
+
+      ReactDOM.render(
+        <NameFrom2/>,
+        document.getElementById('example-5')
       );
 
     </script>
