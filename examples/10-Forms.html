@@ -148,15 +148,20 @@
           super(props);
           this.state = {
             isGoing: true,
-            numberOfGuest: 2
+            numberOfGuests: 2
           };
         }
 
         handleInputChange = (event) => {
           const target = event.target;
-          const value = target.type === 'checkbox'? target.checked: target.value;
-          const name = target.name;
 
+          const name = target.name;
+          const value = target.type === 'checkbox'? target.checked: target.value;
+
+          // 描述一下setState的过程
+          // 两个input元素传入两个不同的name，通过target.name获取到name的值
+          //注意在构造函数初始化state中，有两个跟name值相同的属性名称
+          // 因此，可以通过这个name值作为setState的计算属性名来进行赋值
           this.setState({
             [name]: value
           });
@@ -191,7 +196,6 @@
         <Reservation/>,
         document.getElementById('example-4')
       );
-
 
     </script>
   </body>
