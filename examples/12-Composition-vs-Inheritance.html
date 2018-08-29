@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Composition vs Inheritance</title>
+    <style>
+      .FancyBorder {
+        border-width: 2px;
+        border-style: solid;
+      }
+
+      .FancyBorder-blue {
+        border-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="example-1"></div>
+    <br>
+    <div id="example-2"></div>
+    <br>
+    <div id="example-3"></div>
+    <br>
+    <div id="example-4"></div>
+
+    <script src="../libs/react.development.js"></script>
+    <script src="../libs/react-dom.development.js"></script>
+    <script src="../libs/babel.min.js"></script>
+
+    <script type="text/babel">
+      function FancyBorder(props){
+        return (
+          <div className={'FancyBorder FancyBorder-' + props.color}>
+            {props.children}
+          </div>
+        );
+      }
+
+      function WelcomeDialog() {
+        return (
+          <FancyBorder color="blue">
+            <h1 className="Dialog-title">
+              Welcome
+            </h1>
+            <p className="Dialog-message">
+              Thank you for visiting our spacecraft!
+            </p>
+          </FancyBorder>
+        )
+      }
+
+      ReactDOM.render(
+        <WelcomeDialog/>,
+        document.getElementById('example-1')
+      );
+
+      function SplitPane(props) {
+        return (
+          <div className="SplitPane">
+            <div className="SplitPane-left">
+              {props.left}
+            </div>
+            <div className="SplitPane-right">
+              {props.right}
+            </div>
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <SplitPane
+            left={
+              <p>Left</p>
+            }
+            right={
+              <p>Right</p>
+            } />
+        );
+      }
+
+      ReactDOM.render(
+        <App/>,
+        document.getElementById('example-2')
+      );
+
+      function Dialog(props) {
+        return (
+          <FancyBorder color="blue">
+            <h1 className="Dialog-title">
+              {props.title}
+            </h1>
+            <p className="Dialog-message">
+              {props.message}
+            </p>
+            {props.children}
+          </FancyBorder>
+        );
+      }
+
+      function NewWelcomeDialog() {
+        return (
+          <Dialog
+            title="Welcome"
+            message="Thank you for visiting our spacecraft!" />
+
+        );
+      }
+
+      ReactDOM.render(
+        <NewWelcomeDialog/>,
+        document.getElementById('example-3')
+      );
+
+      class SignUpDialog extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            login: ''
+          };
+        }
+
+        handleChange = (e) => {
+          this.setState({
+            login: e.target.value
+          });
+        };
+
+        handleSignUp = () => {
+          alert(`Welcome aboard, ${this.state.login}`);
+        };
+
+        render() {
+          return (
+            <Dialog title="Mars Exploration Program"
+                    message="How should we refer to you?">
+              <input value={this.state.login}
+                     onChange={this.handleChange}/>
+              &nbsp;
+              <button onClick={this.handleSignUp}>
+                Sign Me Up!
+              </button>
+            </Dialog>
+          );
+        }
+      }
+
+      ReactDOM.render(
+        <SignUpDialog/>,
+        document.getElementById('example-4')
+      );
+    </script>
+  </body>
+</html>
