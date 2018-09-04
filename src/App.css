@@ -2,8 +2,8 @@
   display: flex;
 }
 
-.App {
-
+.App a:visited {
+  color: blue;
 }
 
 .App-logo {
