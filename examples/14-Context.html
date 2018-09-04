@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Context</title>
+    <style>
+      .dark {
+        background-color: darkgray;
+      }
+
+      .light {
+        background-color: lightgray;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="example-1"></div>
+
+    <script src="../libs/react.development.js"></script>
+    <script src="../libs/react-dom.development.js"></script>
+    <script src="../libs/babel.min.js"></script>
+
+    <script type="text/babel">
+      function Button({theme}) {
+        return <button className={theme}>Button</button>;
+      }
+
+      function ThemeButton({props}) {
+        return (
+            <ThemeContext.Consumer>
+              {theme => <Button {...props} theme={theme}/>}
+            </ThemeContext.Consumer>
+          )
+      }
+
+      function Toolbar(props) {
+        return (
+          <div>
+            <ThemeButton hello="Hi" test="Ok"/>
+          </div>
+        );
+      }
+
+
+
+      const ThemeContext = React.createContext('light');
+
+      class App extends React.Component {
+        render() {
+          return (
+            // <ThemeContext.Provider value="dark">
+              <Toolbar/>
+            // </ThemeContext.Provider>
+          );
+        }
+      }
+
+      ReactDOM.render(
+        <App/>,
+        document.getElementById('example-1')
+      );
+
+    </script>
+  </body>
+</html>
