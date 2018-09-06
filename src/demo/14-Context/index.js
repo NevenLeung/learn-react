@@ -106,7 +106,8 @@ function Content2() {
       {theme => (
         <UserContext.Consumer>
           {user => (
-            <ProfilePage user={user} theme={theme}/>
+            <div user={user} theme={theme}/>
+            //<ProfilePage user={user} theme={theme}/>
           )}
         </UserContext.Consumer>
       )}

@@ -16,7 +16,8 @@ import Forms from './demo/09-Forms';
 import LiftingStateUp from './demo/10-Lifting-State-Up';
 import CompositionVsInheritance from './demo/11-Composition-vs-Inheritance';
 import ThinkingInReact from './demo/12-Thinking-in-React';
-import Context from './demo/13-Context';
+import Tutorial from './demo/13-Tutorial';
+import Context from './demo/14-Context';
 
 function HomeTips() {
   return (
@@ -46,8 +47,8 @@ class App extends React.Component {
             <Route path="/lifting-state-up" component={LiftingStateUp}/>
             <Route path="/composition-vs-inheritance" component={CompositionVsInheritance}/>
             <Route path="/thinking-in-react" component={ThinkingInReact}/>
+            <Route path="/tutorial" component={Tutorial}/>
             <Route path="/context" component={Context}/>
-            {/*<Route path="" component={}/>*/}
             {/*<Route path="" component={}/>*/}
           </div>
         </div>
@@ -104,8 +105,17 @@ class Sidebar extends Component {
             <Link to='/thinking-in-react'>Thinking in React</Link>
           </li>
           <li>
-            <Link to='/context'>Context</Link>
+            <Link to='/tutorial'>Tutorial</Link>
           </li>
+          {/*<li>*/}
+            {/*<Link to='/context'>Context</Link>*/}
+          {/*</li>*/}
+          {/*<li>*/}
+            {/*<Link to='/context'>Context</Link>*/}
+          {/*</li>*/}
+          {/*<li>*/}
+            {/*<Link to='/context'>Context</Link>*/}
+          {/*</li>*/}
         </ol>
       </div>
     );
