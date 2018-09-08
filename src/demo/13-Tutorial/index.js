@@ -85,10 +85,13 @@ class Game extends React.Component {
 
   handleClick(i) {
     // Q：为什么需要加1？ A: 因为slice()不包括末尾下边的item
+
     // 这里的handleClick有两种情况
     // 一：连续的点击，没有点击time travel
     // 二：点击了time travel，再来下棋
-    // 不管哪一种情况，都是根据stepNumber来更新history
+    // 不管哪一种情况，都是根据stepNumber来更新history，
+    // 如果是连续的下棋，则正常创建新的squares记录，concat到原先的history中
+    // 如果有新的点击，则会根据当前的stepNumber来创建新的squares记录，在该步骤之前的历史步骤记录就会被抛弃，这里通过slice到stepNumber + 1的位置来实现
     const history = this.state.history.slice(0 , this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
@@ -104,6 +107,7 @@ class Game extends React.Component {
       history: history.concat([{
         squares
       }]),
+      // 点击时，同时更新stepNumber的值，这里的history是上面slice()的结果，还没有添加新的square的history，相比之前相当于+1
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     });
