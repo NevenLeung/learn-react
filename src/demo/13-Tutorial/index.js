@@ -39,34 +39,39 @@ function calculateWinner(squares) {
 }
 
 class Board extends React.Component {
-  renderSquare(i) {
+  // n is the item index in an array
+  renderSquare(n, location) {
     return (
         <Square
-          value={this.props.squares[i]}
-          onClick={() => this.props.onClick(i)}
+          key={n}
+          value={this.props.squares[n]}
+          onClick={() => this.props.onClick(n, location)}
         />
       );
   }
 
   render() {
+    let n = 0;
+    let board, row;
+
+    board = [];
+    for (let i = 0; i < 3; i++) {
+      row = [];
+      for (let j = 0; j < 3; j++, n++) {
+        let location = `(${i + 1}, ${j + 1})`;
+        row = [
+          ...row,
+          this.renderSquare(n, location)
+        ];
+      }
+      board = [
+        ...board,
+        <div className="board-row" key={i}>{row}</div>
+      ];
+    }
+
     return (
-      <div className='board-pad'>
-        <div className='board-row'>
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className='board-row'>
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className='board-row'>
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
+      <div className='board-pad'>{board}</div>
     );
   }
 }
@@ -76,14 +81,19 @@ class Game extends React.Component {
     super(props);
     this.state = {
       history: [{
-        squares: Array(9).fill(null)
+        squares: Array(9).fill(null),
+        move: {
+          player: null,
+          location: null
+        },
+        when: null
       }],
       stepNumber: 0,
       xIsNext: true
     }
   }
 
-  handleClick(i) {
+  handleClick(i, location) {
     // Q：为什么需要加1？ A: 因为slice()不包括末尾下边的item
 
     // 这里的handleClick有两种情况
@@ -105,7 +115,12 @@ class Game extends React.Component {
 
     this.setState({
       history: history.concat([{
-        squares
+        squares,
+        move: {
+          player: squares[i],
+          location: location
+        },
+        when: Date.now()
       }]),
       // 点击时，同时更新stepNumber的值，这里的history是上面slice()的结果，还没有添加新的square的history，相比之前相当于+1
       stepNumber: history.length,
@@ -132,26 +147,28 @@ class Game extends React.Component {
       let stepClassNames = 'step';
 
       if (move === this.state.stepNumber) {
-        // 注意有一个空格 ↓
+        // 注意有一个空格--> ↓
         stepClassNames += ' current-step';
       }
 
       const desc = move?
-        'Go to move #' + move:
-        'Go to game start';
+        `${step.move.player} moved to ${step.move.location}`:
+        'Game start';
 
       return (
-        <li key={move}>
+        <li key={step.when}>
           <a href='#' className={stepClassNames} onClick={() => this.jumpTo(move)}>{desc}</a>
         </li>
       )
     });
 
     let status;
+    const nextPlayer = this.state.xIsNext? 'X': 'O';
+
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
-      status = 'Next player: ' + (this.state.xIsNext? 'X': 'O');
+      status = 'Next player: ' + nextPlayer;
     }
 
     return (
@@ -161,7 +178,7 @@ class Game extends React.Component {
           <br/>
           <Board
             squares={current.squares}
-            onClick={(i) => this.handleClick(i)}
+            onClick={(i, location) => this.handleClick(i, location)}
           />
         </div>
         <div className="game-info">
