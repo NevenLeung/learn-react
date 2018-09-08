@@ -54,3 +54,11 @@ ol, ul {
 .game-history-header {
   text-align: center;
 }
+
+.step:visited {
+  color: blue;
+}
+
+.current-step {
+  font-weight: bold;
+}

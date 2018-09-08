@@ -129,13 +129,20 @@ class Game extends React.Component {
 
     // step是item， move是index
     const moves = history.map((step, move) => {
+      let stepClassNames = 'step';
+
+      if (move === this.state.stepNumber) {
+        // 注意有一个空格 ↓
+        stepClassNames += ' current-step';
+      }
+
       const desc = move?
         'Go to move #' + move:
         'Go to game start';
 
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <a href='#' className={stepClassNames} onClick={() => this.jumpTo(move)}>{desc}</a>
         </li>
       )
     });
