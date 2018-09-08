@@ -50,7 +50,7 @@ class Board extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='board-pad'>
         <div className='board-row'>
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -88,12 +88,12 @@ class Game extends React.Component {
     // 这里的handleClick有两种情况
     // 一：连续的点击，没有点击time travel
     // 二：点击了time travel，再来下棋
-    // 不管哪一种情况，都是根据stepNumber来更新history，也许会保留部分history的记录
+    // 不管哪一种情况，都是根据stepNumber来更新history
     const history = this.state.history.slice(0 , this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    // 如果其中的内容不是null，或者已经决出胜者，则不能触发点击事件
+    // 如果其中的内容不是null，或者已经决出胜者，则不执行下方的setState()操作
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -109,7 +109,7 @@ class Game extends React.Component {
     });
   };
 
-  // 点击相应的历史，修改stepNumber，从而改变传给Board的squares
+  // 点击相应的下棋步骤，修改stepNumber，从而改变传给Board的squares
   jumpTo(step) {
     this.setState({
       stepNumber: step,
@@ -119,6 +119,7 @@ class Game extends React.Component {
 
   render() {
     const history = this.state.history;
+    // ↓ stepNumber影响渲染的下棋步骤列表
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
@@ -145,13 +146,15 @@ class Game extends React.Component {
     return (
       <div className='game'>
         <div className='game-board'>
+          <div>{status}</div>
+          <br/>
           <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <div className='game-history-header'>Game History</div>
           <ol>{moves}</ol>
         </div>
       </div>
