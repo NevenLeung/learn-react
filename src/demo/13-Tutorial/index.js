@@ -8,7 +8,7 @@ function Title() {
 function Square(props) {
   return (
     <button
-      className='square'
+      className={props.winMark? 'square square-win': 'square'}
       onClick={props.onClick}
     >
       {props.value}
@@ -30,8 +30,13 @@ function calculateWinner(squares) {
 
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+
+    if (squares[a].value && squares[a].value === squares[b].value && squares[a].value === squares[c].value) {
+      // 使符合获胜条件的一组square中的内容，高亮显示
+      return {
+        winner: squares[a].value,
+        winIndexArray: [a, b, c]
+      };
     }
   }
 
@@ -44,7 +49,8 @@ class Board extends React.Component {
     return (
         <Square
           key={n}
-          value={this.props.squares[n]}
+          value={this.props.squares[n].value}
+          winMark={this.props.squares[n].winMark}
           onClick={() => this.props.onClick(n, location)}
         />
       );
@@ -52,22 +58,17 @@ class Board extends React.Component {
 
   render() {
     let n = 0;
-    let board, row;
+    let board = [];
+    let row;
 
-    board = [];
+    // render the 3x3 squares
     for (let i = 0; i < 3; i++) {
       row = [];
       for (let j = 0; j < 3; j++, n++) {
         let location = `(${i + 1}, ${j + 1})`;
-        row = [
-          ...row,
-          this.renderSquare(n, location)
-        ];
+        row.push(this.renderSquare(n, location));
       }
-      board = [
-        ...board,
-        <div className="board-row" key={i}>{row}</div>
-      ];
+      board.push(<div className="board-row" key={i}>{row}</div>);
     }
 
     return (
@@ -81,12 +82,12 @@ class Game extends React.Component {
     super(props);
     this.state = {
       history: [{
-        squares: Array(9).fill(null),
+        squares: Array(9).fill(null).map(() => ({value: null, winMark: false})),
         move: {
           player: null,
           location: null
         },
-        when: null
+        when: Date.now()
       }],
       stepNumber: 0,
       xIsNext: true
@@ -107,17 +108,23 @@ class Game extends React.Component {
     const squares = current.squares.slice();
 
     // 如果其中的内容不是null，或者已经决出胜者，则不执行下方的setState()操作
-    if (calculateWinner(squares) || squares[i]) {
+    if (calculateWinner(squares) || squares[i].value) {
       return;
     }
 
-    squares[i] = this.state.xIsNext? 'X': 'O';
+    const nextPlayer = this.state.xIsNext? 'X': 'O';
 
+    // console.log(squares);
+    squares[i].value = nextPlayer;
+
+    // console.log(squares);
+
+    // problem! 问题可能这里!!
     this.setState({
       history: history.concat([{
         squares,
         move: {
-          player: squares[i],
+          player: nextPlayer,
           location: location
         },
         when: Date.now()
@@ -140,24 +147,28 @@ class Game extends React.Component {
     const history = this.state.history;
     // ↓ stepNumber影响渲染的下棋步骤列表
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const result = calculateWinner(current.squares);
 
-    // step是item， move是index
+    console.log(this.state.stepNumber);
+    console.log(current.squares);
+
+    // step是每一个步骤的记录， move是步骤在history中的index
     const moves = history.map((step, move) => {
-      let stepClassNames = 'step';
+      let stepStyle = 'step';
 
       if (move === this.state.stepNumber) {
         // 注意有一个空格--> ↓
-        stepClassNames += ' current-step';
+        stepStyle += ' current-step';
       }
 
+      // 使用记录在state中的信息作为history list中item的描述内容
       const desc = move?
         `${step.move.player} moved to ${step.move.location}`:
         'Game start';
 
       return (
         <li key={step.when}>
-          <a href='#' className={stepClassNames} onClick={() => this.jumpTo(move)}>{desc}</a>
+          <a href='#' className={stepStyle} onClick={() => this.jumpTo(move)}>{desc}</a>
         </li>
       )
     });
@@ -165,8 +176,12 @@ class Game extends React.Component {
     let status;
     const nextPlayer = this.state.xIsNext? 'X': 'O';
 
-    if (winner) {
-      status = 'Winner: ' + winner;
+    if (result) {
+      status = 'Winner: ' + result.winner;
+
+      result.winIndexArray.map((item) => {
+        current.squares[item].winMark = true;
+      })
     } else {
       status = 'Next player: ' + nextPlayer;
     }

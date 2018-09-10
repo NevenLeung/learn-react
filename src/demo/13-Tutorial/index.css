@@ -27,6 +27,10 @@ ol, ul {
   width: 34px;
 }
 
+.square-win {
+  color: red;
+}
+
 .square:focus {
   outline: none;
 }
@@ -52,7 +56,7 @@ ol, ul {
 }
 
 .game-history-header {
-  text-align: center;
+  margin-left: 15px;
 }
 
 .step:visited {
