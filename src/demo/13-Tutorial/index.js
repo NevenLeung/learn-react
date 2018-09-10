@@ -105,7 +105,10 @@ class Game extends React.Component {
     // 如果有新的点击，则会根据当前的stepNumber来创建新的squares记录，在该步骤之前的历史步骤记录就会被抛弃，这里通过slice到stepNumber + 1的位置来实现
     const history = this.state.history.slice(0 , this.state.stepNumber + 1);
     const current = history[history.length - 1];
-    const squares = current.squares.slice();
+
+    // 由于每一个squares内部的值从字符串变成了对象，因此仅仅使用slice()是不够的，slice()是浅拷贝，对于Boolean，Number，String是可以，
+    // 但对于Object，则要使用JSON.parse()和JSON.stringify()
+    const squares =  JSON.parse(JSON.stringify(current.squares));
 
     // 如果其中的内容不是null，或者已经决出胜者，则不执行下方的setState()操作
     if (calculateWinner(squares) || squares[i].value) {
@@ -114,12 +117,8 @@ class Game extends React.Component {
 
     const nextPlayer = this.state.xIsNext? 'X': 'O';
 
-    // console.log(squares);
     squares[i].value = nextPlayer;
 
-    // console.log(squares);
-
-    // problem! 问题可能这里!!
     this.setState({
       history: history.concat([{
         squares,
@@ -146,11 +145,9 @@ class Game extends React.Component {
   render() {
     const history = this.state.history;
     // ↓ stepNumber影响渲染的下棋步骤列表
+
     const current = history[this.state.stepNumber];
     const result = calculateWinner(current.squares);
-
-    console.log(this.state.stepNumber);
-    console.log(current.squares);
 
     // step是每一个步骤的记录， move是步骤在history中的index
     const moves = history.map((step, move) => {
@@ -179,6 +176,9 @@ class Game extends React.Component {
     if (result) {
       status = 'Winner: ' + result.winner;
 
+      // 这里设置的winMark，没有更新到state中，只是改变了传递给Board的对象属性而已，在state中，所有winMark都是false
+      // 其实可能没有必要在state中设置winMark，但这样不利于数据的跟踪，所以还是保留winMark
+      // 不管是否在state中设置winMark，squares内部都需要是一个对象，而不仅仅是一个String，因为需要把winMark的信息一起传递给square
       result.winIndexArray.map((item) => {
         current.squares[item].winMark = true;
       })
