@@ -43,6 +43,27 @@ function calculateWinner(squares) {
   return null;
 }
 
+function gamemIsDraw(squares) {
+  const gameResult = calculateWinner(squares);
+
+  // 判断所有格式是否已经填满
+  const allSquareIsFilled = squares.every((item) => {
+    return item.value;
+  });
+
+  // 不需要9个格子填满，就可能决出胜负
+  if (gameResult) {
+    return gameResult;
+  }
+
+  // 需要9个格子填满，才比较好判断是否是平局
+  if (allSquareIsFilled) {
+    return 'This is a draw!'
+  }
+
+  return null;
+}
+
 class Board extends React.Component {
   // n is the item index in an array
   renderSquare(n, location) {
@@ -147,7 +168,8 @@ class Game extends React.Component {
     // ↓ stepNumber影响渲染的下棋步骤列表
 
     const current = history[this.state.stepNumber];
-    const result = calculateWinner(current.squares);
+    const result = gamemIsDraw(current.squares);
+    let gameIsEnd = false;
 
     // step是每一个步骤的记录， move是步骤在history中的index
     const moves = history.map((step, move) => {
@@ -165,7 +187,7 @@ class Game extends React.Component {
 
       return (
         <li key={step.when}>
-          <a href='#' className={stepStyle} onClick={() => this.jumpTo(move)}>{desc}</a>
+          <button className={stepStyle} onClick={() => this.jumpTo(move)}>{desc}</button>
         </li>
       )
     });
@@ -173,7 +195,12 @@ class Game extends React.Component {
     let status;
     const nextPlayer = this.state.xIsNext? 'X': 'O';
 
-    if (result) {
+    if (typeof result === "string") {
+      // The draw message
+      status = result;
+      gameIsEnd = true;
+    } else if (result){
+      // The winner info object
       status = 'Winner: ' + result.winner;
 
       // 这里设置的winMark，没有更新到state中，只是改变了传递给Board的对象属性而已，在state中，所有winMark都是false
@@ -181,7 +208,9 @@ class Game extends React.Component {
       // 不管是否在state中设置winMark，squares内部都需要是一个对象，而不仅仅是一个String，因为需要把winMark的信息一起传递给square
       result.winIndexArray.map((item) => {
         current.squares[item].winMark = true;
-      })
+      });
+
+      gameIsEnd = true;
     } else {
       status = 'Next player: ' + nextPlayer;
     }
@@ -189,7 +218,7 @@ class Game extends React.Component {
     return (
       <div className='game'>
         <div className='game-board'>
-          <div>{status}</div>
+          <div className={gameIsEnd? 'game-is-end': ''}>{status}</div>
           <br/>
           <Board
             squares={current.squares}

@@ -2,6 +2,10 @@ ol, ul {
   padding-left: 30px;
 }
 
+:focus {
+  outline: none;
+}
+
 .board-row:after {
   clear: both;
   content: '';
@@ -31,10 +35,6 @@ ol, ul {
   color: red;
 }
 
-.square:focus {
-  outline: none;
-}
-
 .kbd-navigation .square:focus {
   background: #ddd;
 }
@@ -51,6 +51,10 @@ ol, ul {
   align-items: center;
 }
 
+.game-is-end {
+  color: red;
+}
+
 .game-info {
   margin-left: 20px;
 }
@@ -59,10 +63,12 @@ ol, ul {
   margin-left: 15px;
 }
 
-.step:visited {
-  color: blue;
+.step {
+
 }
 
 .current-step {
+  color: #fff;
+  background: deepskyblue;
   font-weight: bold;
 }
