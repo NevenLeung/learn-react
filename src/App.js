@@ -18,6 +18,7 @@ import CompositionVsInheritance from './demo/11-Composition-vs-Inheritance';
 import ThinkingInReact from './demo/12-Thinking-in-React';
 import Tutorial from './demo/13-Tutorial';
 import Context from './demo/14-Context';
+import ErrorBoundaries from './demo/15-Error-Boundaries';
 
 function HomeTips() {
   return (
@@ -49,6 +50,9 @@ class App extends React.Component {
             <Route path="/thinking-in-react" component={ThinkingInReact}/>
             <Route path="/tutorial" component={Tutorial}/>
             <Route path="/context" component={Context}/>
+            <Route path="/error-boundaries" component={ErrorBoundaries}/>
+            {/*<Route path="" component={}/>*/}
+            {/*<Route path="" component={}/>*/}
             {/*<Route path="" component={}/>*/}
           </div>
         </div>
@@ -110,9 +114,9 @@ class Sidebar extends Component {
           {/*<li>*/}
             {/*<Link to='/context'>Context</Link>*/}
           {/*</li>*/}
-          {/*<li>*/}
-            {/*<Link to='/context'>Context</Link>*/}
-          {/*</li>*/}
+          <li>
+            <Link to='/error-boundaries'>Error Boundaries</Link>
+          </li>
           {/*<li>*/}
             {/*<Link to='/context'>Context</Link>*/}
           {/*</li>*/}

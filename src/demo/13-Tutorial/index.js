@@ -35,7 +35,7 @@ function calculateWinner(squares) {
       // 使符合获胜条件的一组square中的内容，高亮显示
       return {
         winner: squares[a].value,
-        winIndexArray: [a, b, c]
+        winningLineIndexArray: [a, b, c]
       };
     }
   }
@@ -206,7 +206,7 @@ class Game extends React.Component {
       // 这里设置的winMark，没有更新到state中，只是改变了传递给Board的对象属性而已，在state中，所有winMark都是false
       // 其实可能没有必要在state中设置winMark，但这样不利于数据的跟踪，所以还是保留winMark
       // 不管是否在state中设置winMark，squares内部都需要是一个对象，而不仅仅是一个String，因为需要把winMark的信息一起传递给square
-      result.winIndexArray.map((item) => {
+      result.winningLineIndexArray.map((item) => {
         current.squares[item].winMark = true;
       });
 
