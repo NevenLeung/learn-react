@@ -19,6 +19,7 @@ import ThinkingInReact from './demo/12-Thinking-in-React';
 import Tutorial from './demo/13-Tutorial';
 import Context from './demo/14-Context';
 import ErrorBoundaries from './demo/15-Error-Boundaries';
+import RefsAndTheDOM from './demo/16-Refs-and-the-DOM';
 
 function HomeTips() {
   return (
@@ -51,7 +52,7 @@ class App extends React.Component {
             <Route path="/tutorial" component={Tutorial}/>
             <Route path="/context" component={Context}/>
             <Route path="/error-boundaries" component={ErrorBoundaries}/>
-            {/*<Route path="" component={}/>*/}
+            <Route path="/refs-and-the-dom" component={RefsAndTheDOM}/>
             {/*<Route path="" component={}/>*/}
             {/*<Route path="" component={}/>*/}
           </div>
@@ -117,8 +118,17 @@ class Sidebar extends Component {
           <li>
             <Link to='/error-boundaries'>Error Boundaries</Link>
           </li>
+          <li>
+            <Link to='/refs-and-the-dom'>Refs and the DOM</Link>
+          </li>
           {/*<li>*/}
-            {/*<Link to='/context'>Context</Link>*/}
+          {/*<Link to='/context'>Context</Link>*/}
+          {/*</li>*/}
+          {/*<li>*/}
+          {/*<Link to='/context'>Context</Link>*/}
+          {/*</li>*/}
+          {/*<li>*/}
+          {/*<Link to='/context'>Context</Link>*/}
           {/*</li>*/}
         </ol>
       </div>
