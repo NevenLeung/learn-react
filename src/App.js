@@ -123,7 +123,7 @@ class Sidebar extends Component {
             <Link to='/refs-and-the-dom'>Refs and the DOM</Link>
           </li>
           <li>
-          <Link to='/forwarding-refs'>/Forwarding Refs</Link>
+          <Link to='/forwarding-refs'>Forwarding Refs</Link>
           </li>
           {/*<li>*/}
           {/*<Link to='/context'>Context</Link>*/}
