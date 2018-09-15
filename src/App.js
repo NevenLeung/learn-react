@@ -21,6 +21,7 @@ import Context from './demo/14-Context';
 import ErrorBoundaries from './demo/15-Error-Boundaries';
 import RefsAndTheDOM from './demo/16-Refs-and-the-DOM';
 import ForwardingRefs from './demo/17-Forwarding-Refs';
+import Fragments from './demo/18-Fragments';
 
 function HomeTips() {
   return (
@@ -55,6 +56,11 @@ class App extends React.Component {
             <Route path="/error-boundaries" component={ErrorBoundaries}/>
             <Route path="/refs-and-the-dom" component={RefsAndTheDOM}/>
             <Route path="/forwarding-refs" component={ForwardingRefs}/>
+            <Route path="/fragments" component={Fragments}/>
+            {/*<Route path="" component={}/>*/}
+            {/*<Route path="" component={}/>*/}
+            {/*<Route path="" component={}/>*/}
+            {/*<Route path="" component={}/>*/}
             {/*<Route path="" component={}/>*/}
           </div>
         </div>
@@ -125,6 +131,15 @@ class Sidebar extends Component {
           <li>
           <Link to='/forwarding-refs'>Forwarding Refs</Link>
           </li>
+          <li>
+          <Link to='/fragments'>Fragments</Link>
+          </li>
+          {/*<li>*/}
+          {/*<Link to='/context'>Context</Link>*/}
+          {/*</li>*/}
+          {/*<li>*/}
+          {/*<Link to='/context'>Context</Link>*/}
+          {/*</li>*/}
           {/*<li>*/}
           {/*<Link to='/context'>Context</Link>*/}
           {/*</li>*/}
