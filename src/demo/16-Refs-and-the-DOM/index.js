@@ -6,6 +6,7 @@ function Title() {
   )
 }
 
+// It can not use ref on a functional component.
 function FnComponent({onClick}) {
   return <button onClick={onClick}>this is a function component</button>
 }

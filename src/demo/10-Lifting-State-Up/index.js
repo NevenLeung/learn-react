@@ -44,12 +44,13 @@ const scaleNames = {
 };
 
 class TemperatureInput extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   temperature: ''
-    // };
-  }
+  // It is no need to maintain the state in this component.
+  // constructor(props) {
+  //   super(props);
+  //   // this.state = {
+  //   //   temperature: ''
+  //   // };
+  // }
 
   handleChange = (e) => {
     // this.setState({

@@ -11,7 +11,7 @@ function Link() {
   }
 
   return (
-    <a href="#" onClick={handleClick}>Click me</a>
+    <a href="#link" onClick={handleClick}>Click me</a>
   )
 }
 

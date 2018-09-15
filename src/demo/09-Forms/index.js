@@ -166,10 +166,6 @@ class Reservation extends React.Component {
 
 // Uncontrolled component - react doesn't handle the input change. Using this.input to get the input value.
 class NameForm2 extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleSubmit = (event) => {
     alert('A name was submitted: ' + this.input.value);
     event.preventDefault();
