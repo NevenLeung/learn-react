@@ -22,6 +22,7 @@ import ErrorBoundaries from './demo/15-Error-Boundaries';
 import RefsAndTheDOM from './demo/16-Refs-and-the-DOM';
 import ForwardingRefs from './demo/17-Forwarding-Refs';
 import Fragments from './demo/18-Fragments';
+import JSXInDepth from './demo/20-JSX-in-Depth';
 
 function HomeTips() {
   return (
@@ -58,7 +59,7 @@ class App extends React.Component {
             <Route path="/forwarding-refs" component={ForwardingRefs}/>
             <Route path="/fragments" component={Fragments}/>
             {/*<Route path="" component={}/>*/}
-            {/*<Route path="" component={}/>*/}
+            <Route path="/jsx-in-depth" component={JSXInDepth}/>
             {/*<Route path="" component={}/>*/}
             {/*<Route path="" component={}/>*/}
             {/*<Route path="" component={}/>*/}
@@ -137,9 +138,9 @@ class Sidebar extends Component {
           {/*<li>*/}
           {/*<Link to='/context'>Context</Link>*/}
           {/*</li>*/}
-          {/*<li>*/}
-          {/*<Link to='/context'>Context</Link>*/}
-          {/*</li>*/}
+          <li>
+          <Link to='/jsx-in-depth'>JSX in Depth</Link>
+          </li>
           {/*<li>*/}
           {/*<Link to='/context'>Context</Link>*/}
           {/*</li>*/}
