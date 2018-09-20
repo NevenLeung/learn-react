@@ -10,23 +10,24 @@ function Title() {
 let $appRoot, $modalRoot;
 
 class Modal extends Component {
-  constructor(props) {
-    super(props);
-    this.el = document.createElement('div');
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.el = document.createElement('div');
+  //   this.el.className = 'modal-container';
+  // }
 
   componentDidMount() {
-    $modalRoot.appendChild(this.el);
+    // $modalRoot.appendChild(this.el);
   }
 
   componentWillUnmount() {
-    $modalRoot.removeChild(this.el);
+    // $modalRoot.removeChild(this.el);
   }
 
   render() {
     return ReactDOM.createPortal(
       this.props.children,
-      this.el
+      $modalRoot
     );
   }
 }
