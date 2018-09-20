@@ -23,6 +23,7 @@ import RefsAndTheDOM from './demo/16-Refs-and-the-DOM';
 import ForwardingRefs from './demo/17-Forwarding-Refs';
 import Fragments from './demo/18-Fragments';
 import JSXInDepth from './demo/20-JSX-in-Depth';
+import Portals from './demo/21-Portals';
 
 function HomeTips() {
   return (
@@ -60,7 +61,7 @@ class App extends React.Component {
             <Route path="/fragments" component={Fragments}/>
             {/*<Route path="" component={}/>*/}
             <Route path="/jsx-in-depth" component={JSXInDepth}/>
-            {/*<Route path="" component={}/>*/}
+            <Route path="/portals" component={Portals}/>
             {/*<Route path="" component={}/>*/}
             {/*<Route path="" component={}/>*/}
           </div>
@@ -141,9 +142,9 @@ class Sidebar extends Component {
           <li>
           <Link to='/jsx-in-depth'>JSX in Depth</Link>
           </li>
-          {/*<li>*/}
-          {/*<Link to='/context'>Context</Link>*/}
-          {/*</li>*/}
+          <li>
+          <Link to='/portals'>Portals</Link>
+          </li>
           {/*<li>*/}
           {/*<Link to='/context'>Context</Link>*/}
           {/*</li>*/}
