@@ -24,6 +24,7 @@ import ForwardingRefs from './demo/17-Forwarding-Refs';
 import Fragments from './demo/18-Fragments';
 import JSXInDepth from './demo/20-JSX-in-Depth';
 import Portals from './demo/21-Portals';
+import RenderProps from './demo/22-Render-Props';
 
 function HomeTips() {
   return (
@@ -62,7 +63,7 @@ class App extends React.Component {
             {/*<Route path="" component={}/>*/}
             <Route path="/jsx-in-depth" component={JSXInDepth}/>
             <Route path="/portals" component={Portals}/>
-            {/*<Route path="" component={}/>*/}
+            <Route path="/render-props" component={RenderProps}/>
             {/*<Route path="" component={}/>*/}
           </div>
         </div>
@@ -145,9 +146,9 @@ class Sidebar extends Component {
           <li>
           <Link to='/portals'>Portals</Link>
           </li>
-          {/*<li>*/}
-          {/*<Link to='/context'>Context</Link>*/}
-          {/*</li>*/}
+          <li>
+          <Link to='/render-props'>Render Props</Link>
+          </li>
         </ol>
       </div>
     );
