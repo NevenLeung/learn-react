@@ -25,9 +25,13 @@ class MouseTracker extends Component {
 
   render() {
     return (
-      <div style={{height: '100%', border: '2px solid #eee', borderRadius: '10px'}} onMouseMove={this.handleMouseMove}>
+      <div>
         <h1>Move the mouse around!</h1>
-        <p>The current mouse position is ({this.state.x}, {this.state.y})</p>
+        <div style={{height: '100%', border: '2px solid #eee', borderRadius: '10px'}} onMouseMove={this.handleMouseMove}>
+          <p>
+            The current mouse position is ({this.state.x}, {this.state.y}).
+          </p>
+        </div>
         <h3>This example use wraps all thing in one component. It is hard to reuse it.</h3>
       </div>
     );
@@ -83,6 +87,48 @@ class NewMouseTracker extends Component {
   }
 }
 
+// Test render props with pure component
+class MousePure extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      x: 0,
+      y: 0
+    };
+  }
+
+  handleMouseMove = (e) => {
+    this.setState({
+      x: e.clientX,
+      y: e.clientY
+    });
+  };
+
+  render() {
+    return (
+      <div style={{height: '100%', border: '2px solid #eee', borderRadius: '10px'}} onMouseMove={this.handleMouseMove}>
+        {this.props.render(this.state)}
+      </div>
+    );
+  }
+}
+
+class NewMouseTrackerTest extends Component {
+  renderCat = (mouse) => (
+    <Cat mouse={mouse}/>
+  );
+
+  render() {
+    return (
+      <div>
+        <h1>Move the mouse around!</h1>
+        <MousePure render={this.renderCat}/>
+        <h3>This example use 'render props' technique and react pure component.</h3>
+      </div>
+    );
+  }
+}
+
 function Demo() {
   return (
     <div>
@@ -90,6 +136,7 @@ function Demo() {
       <hr/>
       <MouseTracker/>
       <NewMouseTracker/>
+      <NewMouseTrackerTest/>
     </div>
   )
 }
