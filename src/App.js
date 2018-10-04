@@ -25,6 +25,7 @@ import Fragments from "./demo/18-Fragments";
 import JSXInDepth from "./demo/20-JSX-in-Depth";
 import Portals from "./demo/21-Portals";
 import RenderProps from "./demo/22-Render-Props";
+import PropTypes from './demo/23-Prop-Types';
 
 function HomeTips() {
   return <h1>Click the sidebar to see the examples.</h1>;
@@ -62,6 +63,8 @@ class App extends React.Component {
             <Route path="/jsx-in-depth" component={JSXInDepth} />
             <Route path="/portals" component={Portals} />
             <Route path="/render-props" component={RenderProps} />
+            <Route path="/prop-types" component={PropTypes}/>
+            {/*<Route path="" component={}/>*/}
             {/*<Route path="" component={}/>*/}
           </div>
         </div>
@@ -146,6 +149,9 @@ class Sidebar extends Component {
           </li>
           <li>
             <Link to="/render-props">Render Props</Link>
+          </li>
+          <li>
+            <Link to="/prop-types">Prop Types</Link>
           </li>
         </ol>
       </div>
