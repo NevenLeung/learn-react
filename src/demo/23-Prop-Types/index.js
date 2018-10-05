@@ -48,19 +48,13 @@ class Form extends Component {
   }
 }
 
-class StringInput extends Component {
-  render() {
-    return (
-      <div>
-        <h3>String Input</h3>
-        <input
-          type="text"
-          value={this.props.string}
-          onChange={this.props.handleInput}
-        />
-      </div>
-    );
-  }
+function StringInput(props) {
+  return (
+    <div>
+      <h3>String Input</h3>
+      <input type="text" value={props.string} onChange={props.handleInput} />
+    </div>
+  );
 }
 
 StringInput.propTypes = {
@@ -68,19 +62,17 @@ StringInput.propTypes = {
   handleInput: PropType.func
 };
 
-class NumberInput extends Component {
-  render() {
-    return (
-      <div>
-        <h3>Number Input</h3>
-        <input
-          type="text"
-          value={this.props.number}
-          onChange={this.props.handleInput}
-        />
-      </div>
-    );
-  }
+function NumberInput(props) {
+  return (
+    <div>
+      <h3>Number Input</h3>
+      <input type="text" value={props.number} onChange={props.handleInput} />
+      <p>
+        If typing some text Not Number, you can check the console panel and see
+        the warning message throw by PropTypes.
+      </p>
+    </div>
+  );
 }
 
 NumberInput.propTypes = {
