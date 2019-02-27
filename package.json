@@ -4,12 +4,13 @@
   "private": true,
   "homepage": "https://nevenleung.github.io/learn-react/",
   "dependencies": {
+    "history": "^4.7.2",
     "immutable": "^3.8.2",
     "prop-types": "^15.6.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5"
+    "react-scripts": "^2.1.5"
   },
   "devDependencies": {
     "gh-pages": "^1.2.0",
@@ -23,5 +24,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
