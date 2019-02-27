@@ -28,6 +28,7 @@ import Portals from "./demo/21-Portals";
 import RenderProps from "./demo/22-Render-Props";
 import PropTypes from './demo/23-Prop-Types';
 import UncontrolledComponents from './demo/24-Uncontrolled-Components';
+import PureComponent from './demo/25-Pure-Compoent-and-Memo';
 
 function HomeTips() {
   return <h1>Click the sidebar to see the examples.</h1>;
@@ -69,6 +70,7 @@ const App = () => (
         <Route path={`/render-props`} component={RenderProps} />
         <Route path={`/prop-types`} component={PropTypes}/>
         <Route path={`/uncontrolled-components`} component={UncontrolledComponents}/>
+        <Route path="/pure-component" component={PureComponent}/>
         {/*<Route path="" component={}/>*/}
       </Switch>
     </div>
@@ -155,6 +157,9 @@ const Sidebar = () => (
       </li>
       <li>
         <Link to={`/uncontrolled-components`}>Uncontrolled Components</Link>
+      </li>
+      <li>
+        <Link to={`/pure-component`}>Pure Component and Memo</Link>
       </li>
     </ol>
   </div>
